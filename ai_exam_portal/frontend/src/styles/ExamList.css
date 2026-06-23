@@ -1,0 +1,358 @@
+/* Exam List Container */
+.exam-list-container {
+  width: 100%;
+  min-height: calc(100vh - 140px);
+  padding: 2rem;
+  background: #f8fafc;
+}
+
+.exam-list-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.exam-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.exam-list-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+.exam-list-header .subtitle {
+  color: #64748b;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.exam-count {
+  background: #eff6ff;
+  color: #3b82f6;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Filters */
+.exam-list-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: white;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0 0.75rem;
+}
+
+.filter-icon {
+  color: #94a3b8;
+}
+
+.filter-select {
+  padding: 0.7rem 1.5rem 0.7rem 0.5rem;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: #1a202c;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.filter-select:focus {
+  outline: none;
+}
+
+/* Exam Grid */
+.exam-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Exam Card */
+.exam-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.exam-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.exam-card-content {
+  padding: 1.5rem;
+}
+
+.exam-card-top {
+  margin-bottom: 1rem;
+}
+
+.exam-badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.upcoming {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.status-badge.ongoing {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.status-badge.completed {
+  background: #f0fdf4;
+  color: #22c55e;
+}
+
+.subject-tag {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.exam-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+/* Exam Details */
+.exam-details {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.detail-item i {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Progress */
+.exam-progress {
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #f1f5f9;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.progress-text {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* View Button */
+.exam-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: #f8fafc;
+  color: #1a202c;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.exam-view-btn:hover {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  transform: translateX(4px);
+}
+
+/* No Exams */
+.no-exams {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed #e2e8f0;
+}
+
+.no-exams i {
+  font-size: 3rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.no-exams p {
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.clear-filters-btn {
+  padding: 0.5rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.clear-filters-btn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .exam-list-container {
+    padding: 1rem;
+  }
+
+  .exam-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .exam-list-filters {
+    flex-direction: column;
+  }
+
+  .search-box {
+    min-width: 100%;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+  }
+
+  .exam-list-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .exam-list-container {
+    padding: 0.75rem;
+  }
+
+  .exam-card-content {
+    padding: 1rem;
+  }
+
+  .exam-details {
+    gap: 1rem;
+  }
+}
