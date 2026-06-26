@@ -10,6 +10,32 @@ from results.models import Result, StudentAnswer
 from results.serializers import ResultSerializer
 
 
+def normalize_answer(value):
+    return str(value or '').strip().lower()
+
+
+def is_correct_answer(question, submitted_answer):
+    submitted = normalize_answer(submitted_answer)
+    correct = normalize_answer(question.correct_answer)
+
+    option_values = {
+        'a': question.option_a,
+        'b': question.option_b,
+        'c': question.option_c,
+        'd': question.option_d,
+        'option_a': question.option_a,
+        'option_b': question.option_b,
+        'option_c': question.option_c,
+        'option_d': question.option_d,
+    }
+
+    accepted_answers = {correct}
+    if correct in option_values:
+        accepted_answers.add(normalize_answer(option_values[correct]))
+
+    return submitted in accepted_answers
+
+
 class SubjectViewSet(viewsets.ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
@@ -57,8 +83,7 @@ class ExamViewSet(viewsets.ModelViewSet):
 
             for question in questions:
                 submitted_answer = str(answers.get(str(question.id), '')).strip()
-                correct_answer = str(question.correct_answer).strip()
-                is_correct = submitted_answer.lower() == correct_answer.lower()
+                is_correct = is_correct_answer(question, submitted_answer)
                 marks_obtained = question.marks if is_correct else 0
                 obtained_marks += marks_obtained
 
