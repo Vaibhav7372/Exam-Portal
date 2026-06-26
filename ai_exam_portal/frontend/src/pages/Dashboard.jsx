@@ -38,16 +38,25 @@ function Dashboard() {
       try {
         setLoading(true);
         
-        const [dashboardRes, examsRes] = await Promise.all([
-          axios.get("http://127.0.0.1:8000/api/dashboard/", {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get("http://127.0.0.1:8000/api/exams/")
-        ]);
+        const [dashboardRes, examsRes, resultsRes] = await Promise.all([
+  axios.get("http://127.0.0.1:8000/api/dashboard/", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }),
+  axios.get("http://127.0.0.1:8000/api/exams/"),
+  axios.get("http://127.0.0.1:8000/api/results/", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+]);
 
         setData(dashboardRes.data);
-        setExams(examsRes.data);
-        calculateStats(examsRes.data);
+      setExams(examsRes.data);
+        
+        const userResults = Array.isArray(resultsRes.data) ? resultsRes.data : [];
+        calculateStats(examsRes.data, userResults);
         setFilteredExams(examsRes.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -64,12 +73,14 @@ function Dashboard() {
   }, []);
 
   // Calculate statistics
-  const calculateStats = (examData) => {
+  const calculateStats = (examData, resultData = []) => {
     const total = examData.length;
     const completed = examData.filter(e => e.status === 'completed').length;
     const inProgress = examData.filter(e => e.status === 'ongoing').length;
     const upcoming = examData.filter(e => e.status === 'upcoming').length;
-    const avgScore = examData.reduce((acc, e) => acc + (e.progress || 0), 0) / total || 0;
+    const avgScore = resultData.length
+      ? resultData.reduce((acc, result) => acc + Number(result.percentage || 0), 0) / resultData.length
+      : 0;
 
     setStats({ total, completed, inProgress, upcoming, averageScore: Math.round(avgScore) });
   };
@@ -98,7 +109,6 @@ function Dashboard() {
         exam.status === filters.status
       );
     }
-
     setFilteredExams(filtered);
   }, [exams, filters]);
 
