@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,3 +151,10 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
+
+
+ZOHO_CLIENT_ID = config('ZOHO_CLIENT_ID')
+ZOHO_CLIENT_SECRET = config('ZOHO_CLIENT_SECRET')
+ZOHO_REDIRECT_URI = config('ZOHO_REDIRECT_URI')
+ZOHO_ACCOUNTS_URL = "https://accounts.zoho.in"   # use .in / .eu etc. based on your Zoho DC
+ZOHO_API_DOMAIN = "https://www.zohoapis.in"      # matches your data center

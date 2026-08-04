@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView 
+from ai_engine import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,5 +28,9 @@ urlpatterns = [
     
     path('api/token/',TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/',TokenRefreshView.as_view(), name='token_refresh'),
+    
+    path('zoho/login/', views.zoho_login),
+    path('zoho/callback/', views.zoho_callback),
+    path('zoho/leads/', views.get_zoho_leads),
     
 ]
