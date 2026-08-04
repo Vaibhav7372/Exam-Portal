@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../services/api";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./../styles/Home.css";
@@ -22,7 +23,7 @@ function Home() {
     const fetchStats = async () => {
       try {
         // Replace with your actual API endpoint
-        const response = await fetch("http://127.0.0.1:8000/api/stats/");
+        const response = await fetch(`${API_BASE_URL}/api/stats/`);
         const data = await response.json();
         setStats(data);
       } catch (error) {

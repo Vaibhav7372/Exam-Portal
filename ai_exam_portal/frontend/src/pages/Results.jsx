@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -24,7 +25,7 @@ function Results() {
     const token = localStorage.getItem("access");
     
     axios
-      .get("http://127.0.0.1:8000/api/results/", {
+      .get(`${API_BASE_URL}/api/results/`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then((response) => {

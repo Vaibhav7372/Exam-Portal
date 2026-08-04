@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -14,7 +15,7 @@ function ExamList() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/exams/")
+      .get(`${API_BASE_URL}/api/exams/`)
       .then((res) => {
         setExams(res.data);
         setFilteredExams(res.data);

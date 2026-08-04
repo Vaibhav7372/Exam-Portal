@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { API_BASE_URL } from "../services/api";
 import "./../styles/ExamDetail.css";
 
 function ExamDetail() {
@@ -16,7 +17,7 @@ function ExamDetail() {
     const token = localStorage.getItem("access");
     
     axios
-      .get(`http://127.0.0.1:8000/api/exams/${id}/`, {
+      .get(`${API_BASE_URL}/api/exams/${id}/`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {}
       })
       .then((res) => {

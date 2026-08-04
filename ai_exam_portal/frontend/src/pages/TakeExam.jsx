@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { API_BASE_URL } from "../services/api";
 import "./../styles/ExamDetail.css";
 
 function TakeExam() {
@@ -23,7 +24,7 @@ function TakeExam() {
     }
 
     axios
-      .get(`http://127.0.0.1:8000/api/exams/${id}/`, {
+      .get(`${API_BASE_URL}/api/exams/${id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -61,7 +62,7 @@ function TakeExam() {
       setError("");
 
       await axios.post(
-        `http://127.0.0.1:8000/api/exams/${id}/submit/`,
+        `${API_BASE_URL}/api/exams/${id}/submit/`,
         { answers },
         {
           headers: {

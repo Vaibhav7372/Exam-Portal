@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +23,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-%w%tgrud-yqu8!6m5&=uh5_3gj7+8^o8sy^$$0*hh%y2p76cjf"
+SECRET_KEY = config(
+    "DJANGO_SECRET_KEY",
+    default="django-insecure-local-development-key-change-me",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".vercel.app",
+    *[host.strip() for host in config("ALLOWED_HOSTS", default="").split(",") if host.strip()],
+]
 
 
 # Application definition
@@ -84,10 +93,11 @@ WSGI_APPLICATION = "ai_exam_portal.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / os.getenv("SQLITE_DATABASE_NAME", "db_clean.sqlite3"),
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / os.getenv('SQLITE_DATABASE_NAME', 'db_clean.sqlite3')}",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 
@@ -141,8 +151,12 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    origin.strip()
+    for origin in config(
+        "CORS_ALLOWED_ORIGINS",
+        default="http://localhost:5173,http://127.0.0.1:5173",
+    ).split(",")
+    if origin.strip()
 ]
 
 from datetime import timedelta
@@ -153,8 +167,8 @@ SIMPLE_JWT = {
 }
 
 
-ZOHO_CLIENT_ID = config('ZOHO_CLIENT_ID')
-ZOHO_CLIENT_SECRET = config('ZOHO_CLIENT_SECRET')
-ZOHO_REDIRECT_URI = config('ZOHO_REDIRECT_URI')
+ZOHO_CLIENT_ID = config('ZOHO_CLIENT_ID', default='')
+ZOHO_CLIENT_SECRET = config('ZOHO_CLIENT_SECRET', default='')
+ZOHO_REDIRECT_URI = config('ZOHO_REDIRECT_URI', default='')
 ZOHO_ACCOUNTS_URL = "https://accounts.zoho.in"   # use .in / .eu etc. based on your Zoho DC
 ZOHO_API_DOMAIN = "https://www.zohoapis.in"      # matches your data center

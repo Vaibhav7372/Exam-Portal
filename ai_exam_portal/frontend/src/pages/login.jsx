@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./../styles/Auth.css";
@@ -21,7 +22,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/token/",
+        `${API_BASE_URL}/api/token/`,
         { username, password }
       );
 
@@ -30,7 +31,7 @@ function Login() {
 
       // Optional: Fetch user role and store
       try {
-        const userRes = await axios.get("http://127.0.0.1:8000/api/user/", {
+        const userRes = await axios.get(`${API_BASE_URL}/api/dashboard/`, {
           headers: { Authorization: `Bearer ${response.data.access}` }
         });
         localStorage.setItem("userRole", userRes.data.role);

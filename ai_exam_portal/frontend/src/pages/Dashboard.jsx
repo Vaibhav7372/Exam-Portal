@@ -4,6 +4,7 @@ import "./../styles/Dashboard.css";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { API_BASE_URL } from "../services/api";
 import { FaBell, FaFileAlt, FaCheckCircle, FaStar, FaClock, FaArrowRight, FaCalendar, FaHourglassHalf, FaQuestionCircle, FaSearch, FaFilter } from 'react-icons/fa';
 
 function Dashboard() {
@@ -39,13 +40,13 @@ function Dashboard() {
         setLoading(true);
         
         const [dashboardRes, examsRes, resultsRes] = await Promise.all([
-  axios.get("http://127.0.0.1:8000/api/dashboard/", {
+  axios.get(`${API_BASE_URL}/api/dashboard/`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   }),
-  axios.get("http://127.0.0.1:8000/api/exams/"),
-  axios.get("http://127.0.0.1:8000/api/results/", {
+  axios.get(`${API_BASE_URL}/api/exams/`),
+  axios.get(`${API_BASE_URL}/api/results/`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
